@@ -1,0 +1,16 @@
+language: go
+go:
+- 1.5.3
+- 1.6
+- tip
+before_script:
+- go get -u github.com/alecthomas/gometalinter
+- gometalinter -i
+script:
+- gometalinter -e "._test.go"
+- go test -coverprofile=coverage.txt -covermode=atomic
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+notifications:
+  slack:
+    secure: YK7nY4iDeSFvSs+flmQA+QrYwf/qr8QbnDDOjvyHOH//f+QbxmlhMgf3UHPq3dp23t7cSHGoqt0Tt5hU/q2lS1GHBh5DgQhz1wsMX+RoWCwKjIPnFGjuY/PWne0EXMkaaUgS+6F0LzEnWuXG3dc4G+6EEHCZEI/cSccGGkHfRW3MuWJ1oP9bTGeQApi3g+zfxivbjFbQ51jVVzcaWARaxc2zbo1UITsjP+Qk5qVCdI2PR0TgdY03cPOJbj601Y7+uPPvyVNMan91b5r+SN66A5rSFmdjlx05idcObLkHGGOrHYlBYW84gAwWNft6I+ZjB7mPKXCmbRR0zsl6Wd97ytG7/zZh4UVEd3B3GKILcIErkq0l9znVTKeqVulicEmkkIe9NkQQOI5fr30SsIPqqvSSi4OaLFqi7ZpNoWRW8NpABWAnTVMxLQ7kwc1jN78q3tBjWELUp+cKyNFrOvioxAm2aZlAsEBVIYTE/tTGSzziDyIp5lqg5V11uXLNYDfv+xn5AM0nwrSxMgYsJEvUBKTzBbsaXYptmPc4i35nKksgnc1MHX3f6N6TurfOIVS+4cyYV/dL1FT5vchS4u4NCGIFdD9XSWQjdM6qSVkAOgTgVMqaX6ysmT67c0Q/JRt5+jagnV8Vjp72/Cn86d906MlgIGZIDZ4C1Piqk443dUQ=
